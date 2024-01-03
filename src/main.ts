@@ -1,26 +1,41 @@
 import * as core from '@actions/core'
-import { wait } from './wait'
+import crypto from 'crypto'
+import { resolve } from 'node:path'
+import { readJsonFile, writeJsonFile } from 'nx/src/utils/fileutils'
+import { workspaceRoot } from 'nx/src/utils/workspace-root'
+import type { NxJsonConfiguration } from 'nx/src/config/nx-json'
+import argv from 'yargs-parser'
+import { execFileSync } from 'node:child_process'
+import { nx, runner } from './nx'
 
-/**
- * The main function for the action.
- * @returns {Promise<void>} Resolves when the action is complete.
- */
-export async function run(): Promise<void> {
+const tmpRunnerID = crypto.randomUUID()
+const nxJsonPath = resolve(workspaceRoot, 'nx.json')
+
+const overrideNxJson = (): {
+  revert: () => void
+} => {
+  const nxJson = readJsonFile<NxJsonConfiguration>(nxJsonPath)
+
+  writeJsonFile(nxJsonPath, {
+    ...nxJson.tasksRunnerOptions,
+    [tmpRunnerID]: {
+      runner
+    }
+  })
+
+  return {
+    revert: () => writeJsonFile(nxJsonPath, nxJson)
+  }
+}
+
+export function run(): void {
+  const args = argv(core.getInput('nx'))._ as string[]
+
   try {
-    const ms: string = core.getInput('milliseconds')
-
-    // Debug logs are only output if the `ACTIONS_STEP_DEBUG` secret is true
-    core.debug(`Waiting ${ms} milliseconds ...`)
-
-    // Log the current timestamp, wait, then log the new timestamp
-    core.debug(new Date().toTimeString())
-    await wait(parseInt(ms, 10))
-    core.debug(new Date().toTimeString())
-
-    // Set outputs for other workflow steps to use
-    core.setOutput('time', new Date().toTimeString())
+    const { revert } = overrideNxJson()
+    execFileSync(nx, [...args, `--runner=${tmpRunnerID}`], { stdio: 'inherit' })
+    revert()
   } catch (error) {
-    // Fail the workflow run if an error occurs
-    if (error instanceof Error) core.setFailed(error.message)
+    core.setFailed(error as Error)
   }
 }
