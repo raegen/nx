@@ -1,4 +1,4 @@
-name: 'nx'
+name: '@raegen/nx'
 description: 'Github action for executing nx commands cached with @actions/cache'
 author: '@raegen'
 
