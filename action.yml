@@ -16,4 +16,5 @@ inputs:
 
 runs:
   using: node20
+  pre: dist/setup.js
   main: dist/index.js
