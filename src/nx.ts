@@ -1,9 +1,11 @@
 import { existsSync } from 'node:fs'
 import { join, resolve } from 'node:path'
 import { createRequire } from 'node:module'
+import { fileURLToPath } from 'url'
 
 const getModule = (
-  entry: string
+  entry: string,
+  from = resolve(process.cwd(), 'package.json')
 ): {
   main: string
   root: string | undefined
@@ -13,7 +15,7 @@ const getModule = (
       ? entry.split('/').slice(0, 2).join('/')
       : entry.split('/')[0]
     : entry
-  const require = createRequire(resolve(process.cwd(), 'package.json'))
+  const require = createRequire(from)
 
   return {
     main: require.resolve(entry),
@@ -29,4 +31,7 @@ if (!root) {
 }
 export const nx = resolve(root, 'bin', 'nx.js')
 
-export const runner = getModule('@raegen/github-runner').main
+export const runner = getModule(
+  '@raegen/github-runner',
+  fileURLToPath(import.meta.url)
+).main
