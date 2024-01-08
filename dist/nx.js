@@ -11,12 +11,17 @@ const getModule = (entry, from = resolve(process.cwd(), 'package.json')) => {
     const require = createRequire(from);
     return {
         main: require.resolve(entry),
-        root: require.resolve.paths(entry)?.find(p => existsSync(join(p, name)))
+        root: require.resolve
+            .paths(entry)
+            ?.map(p => join(p, name))
+            .find(p => existsSync(p))
     };
 };
 const { root } = getModule('nx');
 if (!root) {
     throw new Error('Could not resolve nx package, is it installed? Did you install node modules prior to running the action? This action requires nx package to run.');
 }
-export const nx = resolve(root, '.bin', 'nx');
+export const nx = resolve(root, 'bin', 'nx.js');
+export const workspaceRoot = resolve(process.cwd());
+export const nxJsonPath = resolve(workspaceRoot, 'nx.json');
 export const runner = getModule('@raegen/github-runner', fileURLToPath(import.meta.url)).main;
