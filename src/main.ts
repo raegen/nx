@@ -14,7 +14,7 @@ const targets = Array.from(
     Object.values((await createProjectGraphAsync()).nodes)
       .map(({ data }) =>
         Object.keys(data.targets || {}).filter(
-          target => data.targets?.[target].cache
+          target => data.targets?.[target].cache !== false
         )
       )
       .flat()

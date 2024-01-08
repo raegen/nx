@@ -7,7 +7,7 @@ import { readFile, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 const cacheDirectory = core.getInput('cacheDirectory') || resolve(cacheDir, 'remote');
 const targets = Array.from(new Set(Object.values((await createProjectGraphAsync()).nodes)
-    .map(({ data }) => Object.keys(data.targets || {}).filter(target => data.targets?.[target].cache))
+    .map(({ data }) => Object.keys(data.targets || {}).filter(target => data.targets?.[target].cache !== false))
     .flat()));
 const readJson = async (path) => JSON.parse(await readFile(path, 'utf-8'));
 const writeJson = async (path, content) => writeFile(path, JSON.stringify(content));
