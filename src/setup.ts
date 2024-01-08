@@ -5,7 +5,7 @@ execSync(
   `sudo ln -s "${process.execPath}" /usr/bin/node && ${resolve(
     dirname(process.execPath),
     'npm'
-  )} install`,
+  )} install -C ${import.meta.resolve('..')}`,
   {
     stdio: 'inherit',
     encoding: 'utf-8'
