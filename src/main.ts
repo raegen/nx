@@ -4,7 +4,6 @@ import { resolve } from 'node:path'
 import { readJsonFile, writeJsonFile } from 'nx/src/utils/fileutils.js'
 import { workspaceRoot } from 'nx/src/utils/workspace-root.js'
 import type { NxJsonConfiguration } from 'nx/src/config/nx-json.d.ts'
-import argv from 'yargs-parser'
 import { execFileSync } from 'node:child_process'
 import { nx, runner } from './nx.js'
 
@@ -29,7 +28,7 @@ const overrideNxJson = (): {
 }
 
 export function run(): void {
-  const args = argv(core.getInput('nx'))._ as string[]
+  const args = core.getInput('nx').split(' ')
 
   try {
     const { revert } = overrideNxJson()
