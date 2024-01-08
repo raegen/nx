@@ -1,5 +1,5 @@
-import * as core from '@actions/core';
-import crypto from 'crypto';
+import core from '@actions/core';
+import crypto from 'node:crypto';
 import { resolve } from 'node:path';
 import { readJsonFile, writeJsonFile } from 'nx/src/utils/fileutils.js';
 import { workspaceRoot } from 'nx/src/utils/workspace-root.js';

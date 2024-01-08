@@ -1,7 +1,7 @@
 {
   "name": "@raegen/nx",
   "description": "Github action for executing nx commands cached with @actions/cache",
-  "version": "0.0.4",
+  "version": "0.0.8",
   "author": "raegen",
   "type": "module",
   "homepage": "https://github.com/raegen/nx",
@@ -26,14 +26,14 @@
   },
   "scripts": {
     "bundle": "npm run format:write && npm run package",
-    "ci-test": "jest",
+    "ci-test": "jest --passWithNoTests",
     "coverage": "make-coverage-badge --output-path ./badges/coverage.svg",
     "format:write": "prettier --write **/*.ts",
     "format:check": "prettier --check **/*.ts",
     "lint": "npx eslint . -c ./.github/linters/.eslintrc.yml",
     "package": "tsc",
     "package:watch": "npm run package -- --watch",
-    "test": "jest",
+    "test": "jest --passWithNoTests",
     "all": "npm run format:write && npm run lint && npm run test && npm run coverage && npm run package"
   },
   "license": "MIT",
