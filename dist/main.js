@@ -7,9 +7,12 @@ const tmpRunnerID = crypto.randomUUID();
 const overrideNxJson = () => {
     const nxJson = readJsonFile(nxJsonPath);
     writeJsonFile(nxJsonPath, {
-        ...nxJson.tasksRunnerOptions,
-        [tmpRunnerID]: {
-            runner
+        ...nxJson,
+        tasksRunnerOptions: {
+            ...nxJson.tasksRunnerOptions,
+            [tmpRunnerID]: {
+                runner
+            }
         }
     });
     return {

@@ -13,9 +13,12 @@ const overrideNxJson = (): {
   const nxJson = readJsonFile<NxJsonConfiguration>(nxJsonPath)
 
   writeJsonFile(nxJsonPath, {
-    ...nxJson.tasksRunnerOptions,
-    [tmpRunnerID]: {
-      runner
+    ...nxJson,
+    tasksRunnerOptions: {
+      ...nxJson.tasksRunnerOptions,
+      [tmpRunnerID]: {
+        runner
+      }
     }
   })
 
