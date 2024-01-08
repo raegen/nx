@@ -2,7 +2,11 @@ import core from '@actions/core'
 import crypto from 'node:crypto'
 import { execFileSync } from 'node:child_process'
 import { nx, nxJsonPath, runner } from './nx.js'
-import { writeFile, readFile } from 'node:fs/promises'
+import { createProjectGraphAsync, cacheDir } from '@nx/devkit';
+import { readFile, writeFile } from 'node:fs/promises'
+import { resolve } from 'node:path'
+
+const targets = createProjectGraphAsync().then(({ nodes }) => Array.from(new Set(Object.values(nodes).map(({ data }) => Object.keys(data.targets || {})).flat())))
 
 const readJson = async <T>(path: string): Promise<T> =>
   JSON.parse(await readFile(path, 'utf-8'))
@@ -28,7 +32,11 @@ const overrideNxJson = async (): Promise<{
     tasksRunnerOptions: {
       ...nxJson.tasksRunnerOptions,
       [tmpRunnerID]: {
-        runner
+        runner,
+        options: {
+          cacheDirectory: resolve(cacheDir, 'remote'),
+          cacheableOperations: await targets
+        }
       }
     }
   })
