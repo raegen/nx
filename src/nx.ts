@@ -29,7 +29,7 @@ if (!root) {
     'Could not resolve nx package, is it installed? Did you install node modules prior to running the action? This action requires nx package to run.'
   )
 }
-export const nx = resolve(root, 'bin', 'nx.js')
+export const nx = resolve(root, '.bin', 'nx')
 
 export const runner = getModule(
   '@raegen/github-runner',
