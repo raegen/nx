@@ -1,12 +1,14 @@
 import core from '@actions/core';
 import crypto from 'node:crypto';
-import { readJsonFile, writeJsonFile } from 'nx/src/utils/fileutils.js';
 import { execFileSync } from 'node:child_process';
 import { nx, nxJsonPath, runner } from './nx.js';
+import { writeFile, readFile } from 'node:fs/promises';
+const readJson = async (path) => JSON.parse(await readFile(path, 'utf-8'));
+const writeJson = async (path, content) => writeFile(path, JSON.stringify(content));
 const tmpRunnerID = crypto.randomUUID();
-const overrideNxJson = () => {
-    const nxJson = readJsonFile(nxJsonPath);
-    writeJsonFile(nxJsonPath, {
+const overrideNxJson = async () => {
+    const nxJson = await readJson(nxJsonPath);
+    await writeJson(nxJsonPath, {
         ...nxJson,
         tasksRunnerOptions: {
             ...nxJson.tasksRunnerOptions,
@@ -16,15 +18,15 @@ const overrideNxJson = () => {
         }
     });
     return {
-        revert: () => writeJsonFile(nxJsonPath, nxJson)
+        revert: async () => writeJson(nxJsonPath, nxJson)
     };
 };
-export function run() {
+export async function run() {
     const args = core.getInput('nx').split(' ');
     try {
-        const { revert } = overrideNxJson();
+        const { revert } = await overrideNxJson();
         execFileSync(nx, [...args, `--runner=${tmpRunnerID}`], { stdio: 'inherit' });
-        revert();
+        await revert();
     }
     catch (error) {
         core.setFailed(error);

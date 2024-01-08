@@ -1,18 +1,29 @@
 import core from '@actions/core'
 import crypto from 'node:crypto'
-import { readJsonFile, writeJsonFile } from 'nx/src/utils/fileutils.js'
-import type { NxJsonConfiguration } from 'nx/src/config/nx-json.d.ts'
 import { execFileSync } from 'node:child_process'
 import { nx, nxJsonPath, runner } from './nx.js'
+import { writeFile, readFile } from 'node:fs/promises'
+
+const readJson = async <T>(path: string): Promise<T> =>
+  JSON.parse(await readFile(path, 'utf-8'))
+
+const writeJson = async <T>(path: string, content: T): Promise<void> =>
+  writeFile(path, JSON.stringify(content))
 
 const tmpRunnerID = crypto.randomUUID()
 
-const overrideNxJson = (): {
-  revert: () => void
-} => {
-  const nxJson = readJsonFile<NxJsonConfiguration>(nxJsonPath)
+const overrideNxJson = async (): Promise<{
+  revert: () => Promise<void>
+}> => {
+  const nxJson = await readJson<{
+    tasksRunnerOptions: {
+      [key: string]: {
+        runner: string
+      }
+    }
+  }>(nxJsonPath)
 
-  writeJsonFile(nxJsonPath, {
+  await writeJson(nxJsonPath, {
     ...nxJson,
     tasksRunnerOptions: {
       ...nxJson.tasksRunnerOptions,
@@ -23,17 +34,17 @@ const overrideNxJson = (): {
   })
 
   return {
-    revert: () => writeJsonFile(nxJsonPath, nxJson)
+    revert: async () => writeJson(nxJsonPath, nxJson)
   }
 }
 
-export function run(): void {
+export async function run(): Promise<void> {
   const args = core.getInput('nx').split(' ')
 
   try {
-    const { revert } = overrideNxJson()
+    const { revert } = await overrideNxJson()
     execFileSync(nx, [...args, `--runner=${tmpRunnerID}`], { stdio: 'inherit' })
-    revert()
+    await revert()
   } catch (error) {
     core.setFailed(error as Error)
   }
