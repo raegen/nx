@@ -3,7 +3,6 @@ import crypto from 'node:crypto';
 import { resolve } from 'node:path';
 import { readJsonFile, writeJsonFile } from 'nx/src/utils/fileutils.js';
 import { workspaceRoot } from 'nx/src/utils/workspace-root.js';
-import argv from 'yargs-parser';
 import { execFileSync } from 'node:child_process';
 import { nx, runner } from './nx.js';
 const tmpRunnerID = crypto.randomUUID();
@@ -21,7 +20,7 @@ const overrideNxJson = () => {
     };
 };
 export function run() {
-    const args = argv(core.getInput('nx'))._;
+    const args = core.getInput('nx').split(' ');
     try {
         const { revert } = overrideNxJson();
         execFileSync(nx, [...args, `--runner=${tmpRunnerID}`], { stdio: 'inherit' });
