@@ -13,7 +13,7 @@ const getModule = (
       ? entry.split('/').slice(0, 2).join('/')
       : entry.split('/')[0]
     : entry
-  const require = createRequire(__filename)
+  const require = createRequire(resolve(process.cwd(), 'package.json'))
 
   return {
     main: require.resolve(entry),
