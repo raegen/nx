@@ -6,10 +6,17 @@ import { createProjectGraphAsync, cacheDir } from '@nx/devkit'
 import { readFile, writeFile } from 'node:fs/promises'
 import { resolve } from 'node:path'
 
+const cacheDirectory =
+  core.getInput('cacheDirectory') || resolve(cacheDir, 'remote')
+
 const targets = Array.from(
   new Set(
     Object.values((await createProjectGraphAsync()).nodes)
-      .map(({ data }) => Object.keys(data.targets || {}))
+      .map(({ data }) =>
+        Object.keys(data.targets || {}).filter(
+          target => data.targets?.[target].cache
+        )
+      )
       .flat()
   )
 )
@@ -20,7 +27,7 @@ const readJson = async <T>(path: string): Promise<T> =>
 const writeJson = async <T>(path: string, content: T): Promise<void> =>
   writeFile(path, JSON.stringify(content))
 
-const tmpRunnerID = crypto.randomUUID()
+const id = crypto.randomUUID()
 
 const overrideNxJson = async (): Promise<{
   revert: () => Promise<void>
@@ -37,10 +44,10 @@ const overrideNxJson = async (): Promise<{
     ...nxJson,
     tasksRunnerOptions: {
       ...nxJson.tasksRunnerOptions,
-      [tmpRunnerID]: {
+      [id]: {
         runner,
         options: {
-          cacheDirectory: resolve(cacheDir, 'remote'),
+          cacheDirectory,
           cacheableOperations: targets
         }
       }
@@ -57,7 +64,7 @@ export async function run(): Promise<void> {
 
   try {
     const { revert } = await overrideNxJson()
-    execFileSync(nx, [...args, `--runner=${tmpRunnerID}`], { stdio: 'inherit' })
+    execFileSync(nx, [...args, `--runner=${id}`], { stdio: 'inherit' })
     await revert()
   } catch (error) {
     core.setFailed(error as Error)

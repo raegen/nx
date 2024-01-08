@@ -1,7 +1,7 @@
 {
   "name": "@raegen/nx",
   "description": "Github action for executing nx commands cached with @actions/cache",
-  "version": "0.0.9",
+  "version": "0.2.5",
   "author": "raegen",
   "type": "module",
   "homepage": "https://github.com/raegen/nx",
@@ -69,8 +69,10 @@
   "dependencies": {
     "@actions/core": "^1.10.1",
     "@raegen/github-runner": "^0.1.5",
-    "nx": "^17.2.8",
     "@nx/devkit": "^17.2.8"
+  },
+  "peerDependencies": {
+    "nx": "^17.2.8"
   },
   "devDependencies": {
     "@types/jest": "^29.5.11",
