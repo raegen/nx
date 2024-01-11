@@ -30,7 +30,7 @@ jobs:
 
       - name: Install Dependencies
         id: install
-        run: yarn ci
+        run: yarn
 
       - name: Lint Codebase
         id: super-linter
