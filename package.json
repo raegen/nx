@@ -1,7 +1,7 @@
 {
   "name": "@raegen/nx",
   "description": "Github action for executing nx commands cached with @actions/cache",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "author": "raegen",
   "type": "module",
   "homepage": "https://github.com/raegen/nx",
@@ -25,16 +25,16 @@
     "node": ">=20"
   },
   "scripts": {
-    "bundle": "npm run format:write && npm run package",
+    "bundle": "yarn run format:write && yarn run package",
     "ci-test": "jest --passWithNoTests",
     "coverage": "make-coverage-badge --output-path ./badges/coverage.svg",
     "format:write": "prettier --write **/*.ts",
     "format:check": "prettier --check **/*.ts",
     "lint": "npx eslint . -c ./.github/linters/.eslintrc.yml",
     "package": "tsc",
-    "package:watch": "npm run package -- --watch",
+    "package:watch": "yarn run package -- --watch",
     "test": "jest --passWithNoTests",
-    "all": "npm run format:write && npm run lint && npm run test && npm run coverage && npm run package"
+    "all": "yarn run format:write && yarn run lint && yarn run test && yarn run coverage && yarn run package"
   },
   "license": "MIT",
   "jest": {
@@ -90,6 +90,7 @@
     "prettier": "^3.1.1",
     "prettier-eslint": "^16.2.0",
     "ts-jest": "^29.1.1",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "nx": "^17.2.8"
   }
 }
