@@ -13,10 +13,7 @@ execSync(
   }
 )
 
-execSync(
-  `yarn --cwd ${fileURLToPath(import.meta.resolve('..'))}`,
-  {
-    stdio: 'inherit',
-    encoding: 'utf-8'
-  }
-)
+execSync(`yarn --cwd ${fileURLToPath(import.meta.resolve('..'))}`, {
+  stdio: 'inherit',
+  encoding: 'utf-8'
+})
