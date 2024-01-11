@@ -5,8 +5,8 @@ import { fileURLToPath } from 'url'
 execSync(
   `sudo ln -s "${process.execPath}" /usr/bin/node && ${resolve(
     dirname(process.execPath),
-    'npm'
-  )} install -C ${fileURLToPath(import.meta.resolve('..'))}`,
+    'yarn'
+  )} --cwd ${fileURLToPath(import.meta.resolve('..'))}`,
   {
     stdio: 'inherit',
     encoding: 'utf-8'
