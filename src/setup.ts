@@ -5,8 +5,16 @@ import { fileURLToPath } from 'url'
 execSync(
   `sudo ln -s "${process.execPath}" /usr/bin/node && ${resolve(
     dirname(process.execPath),
-    'yarn'
-  )} --cwd ${fileURLToPath(import.meta.resolve('..'))}`,
+    'npm'
+  )} install -g yarn`,
+  {
+    stdio: 'inherit',
+    encoding: 'utf-8'
+  }
+)
+
+execSync(
+  `yarn --cwd ${fileURLToPath(import.meta.resolve('..'))}`,
   {
     stdio: 'inherit',
     encoding: 'utf-8'
