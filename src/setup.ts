@@ -3,7 +3,7 @@ import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'url'
 
 execSync(
-  `sudo ln -s "${process.execPath}" /usr/bin/node && ${resolve(
+  `sudo ln -sf "${process.execPath}" /usr/bin/node && ${resolve(
     dirname(process.execPath),
     'npm'
   )} install -g yarn`,
