@@ -14,7 +14,7 @@ All operations are cached by default, otherwise respecting the value set for spe
 ## Usage
 
 Usage is straight-forward, just use the action as you would use the NX CLI, through the `nx` input specifying the NX command and arguments to run (with).
-    
+
 ```yaml
 - uses: @raegen/nx
   with:
@@ -22,9 +22,11 @@ Usage is straight-forward, just use the action as you would use the NX CLI, thro
 ```
 
 ### Inputs
-`nx` The NX command and args to run. Defaults to `--help`. 
+
+`nx` The NX command and args to run. Defaults to `--help`.
 
 Example(s):
+
 ```yaml
  - uses: @raegen/nx
       with:
@@ -33,9 +35,11 @@ Example(s):
          nx: affected --target=build # or
          nx: ...
 ```
+
 `cacheDirectory` Defines where the local cache is stored. Defaults to `.nx/cache/remote`.
 
 Example(s):
+
 ```yaml
  - uses: @raegen/nx
    with:
@@ -48,8 +52,6 @@ Example(s):
 
 First and foremost: this is not, nor is it using nx local cache. It is not just awkwardly saving/restoring the forever-growing GBs of whatever is under .nx/cache (prior to 17, it lived in node_modules/.cache/nx).
 
-The action runs nx using a custom runner that implements the remote cache interface, the same way that nx-cloud runner does. This cache is atomic, done on task level (separately for each project:target:configuration ran as a result of a command).
+The action runs nx using a custom runner that implements the nx remote cache interface, the same way that nx-cloud runner does. This cache is atomic, done on task level (separately for each project:target:configuration ran as a result of a command).
 
 There is no additional configuration needed = it works out of the box and is enabled for every target by default, unless you explicitly set `cache: false` to target configuration per nx documentation. (obviously, this only applies to nx commands ran through the action)
-
-
