@@ -794,6 +794,13 @@
   dependencies:
     "@nx/devkit" "17.2.8"
 
+"@nrwl/devkit@18.0.1":
+  version "18.0.1"
+  resolved "https://registry.yarnpkg.com/@nrwl/devkit/-/devkit-18.0.1.tgz#67b2e30acf92ba63755e747991e5502b184e80cb"
+  integrity sha512-9SXlKk+LSNMVaKE6RqjIZ2agPKQVljOrt2cMyQe0SQCsqxrzqajwGD19zDGISiOLiiq24QPz30Q+vM7W98Yb9g==
+  dependencies:
+    "@nx/devkit" "18.0.1"
+
 "@nrwl/tao@17.2.8":
   version "17.2.8"
   resolved "https://registry.yarnpkg.com/@nrwl/tao/-/tao-17.2.8.tgz#41ff3d715a0763e95cf5c35e7f79cd3be358dc5f"
@@ -814,6 +821,20 @@
     semver "7.5.3"
     tmp "~0.2.1"
     tslib "^2.3.0"
+
+"@nx/devkit@18.0.1", "@nx/devkit@^18.0.1":
+  version "18.0.1"
+  resolved "https://registry.yarnpkg.com/@nx/devkit/-/devkit-18.0.1.tgz#1c5cce313815683b647636d57c94cec8c67a506c"
+  integrity sha512-YmX5YqZAGqIK6ACwj6+BmogbOr/HVrILnx5ybiHPwNzMTv5HQpJ67HfBRYUDKIFiY4zTjciYyWAmqG89UYCq1w==
+  dependencies:
+    "@nrwl/devkit" "18.0.1"
+    ejs "^3.1.7"
+    enquirer "~2.3.6"
+    ignore "^5.0.4"
+    semver "^7.5.3"
+    tmp "~0.2.1"
+    tslib "^2.3.0"
+    yargs-parser "21.1.1"
 
 "@nx/nx-darwin-arm64@17.2.8":
   version "17.2.8"
