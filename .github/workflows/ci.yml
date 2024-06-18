@@ -24,20 +24,20 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version-file: .node-version
-          cache: yarn
+          cache: npm
 
       - name: Install Dependencies
-        id: yarn
-        run: yarn
+        id: npm
+        run: npm ci
 
       - name: Check Format
-        id: yarn-format-check
-        run: yarn run format:check
+        id: npm-format-check
+        run: npm run format:check
 
       - name: Lint
-        id: yarn-lint
-        run: yarn run lint
+        id: npm-lint
+        run: npm run lint
 
       - name: Test
-        id: yarn-ci-test
-        run: yarn run ci-test
+        id: npm-ci-test
+        run: npm run ci-test
