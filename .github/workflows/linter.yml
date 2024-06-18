@@ -26,11 +26,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version-file: .node-version
-          cache: yarn
+          cache: npm
 
       - name: Install Dependencies
         id: install
-        run: yarn
+        run: npm ci
 
       - name: Lint Codebase
         id: super-linter
