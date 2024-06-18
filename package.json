@@ -21,9 +21,6 @@
   "exports": {
     ".": "./dist/index.js"
   },
-  "engines": {
-    "node": ">=20"
-  },
   "scripts": {
     "bundle": "yarn run format:write && yarn run package",
     "ci-test": "jest --passWithNoTests",
