@@ -1,7 +1,7 @@
 {
   "name": "@raegen/nx",
   "description": "Github action for executing nx commands cached with @actions/cache",
-  "version": "0.2.9",
+  "version": "0.3.0",
   "author": "raegen",
   "type": "module",
   "homepage": "https://github.com/raegen/nx",
