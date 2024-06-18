@@ -1,3 +1,13 @@
-import { ensurePackage } from '@nx/devkit'
+import { execSync } from 'node:child_process'
+import { dirname, resolve } from 'node:path'
 
-await ensurePackage('@raegen/github-runner', 'latest')
+execSync(
+  `sudo ln -sf "${process.execPath}" /usr/bin/node && ${resolve(
+    dirname(process.execPath),
+    'npm'
+  )} install`,
+  {
+    stdio: 'inherit',
+    encoding: 'utf-8'
+  }
+)
