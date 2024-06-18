@@ -33,15 +33,15 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version-file: .node-version
-          cache: yarn
+          cache: npm
 
       - name: Install Dependencies
         id: install
-        run: yarn
+        run: npm ci
 
       - name: Build dist/ Directory
         id: build
-        run: yarn run bundle
+        run: npm run bundle
 
       # This will fail the workflow if the PR wasn't created by Dependabot.
       - name: Compare Directories
