@@ -75,7 +75,7 @@
     "@nx/nx-linux-arm-gnueabihf": "17.2.8",
     "@nx/nx-linux-arm64-gnu": "17.2.8",
     "@nx/nx-linux-arm64-musl": "17.2.8",
-    "@nx/nx-linux-x64-gnu": "17.2.8",
+    "@nx/nx-linux-x64-gnu": "19.4.3",
     "@nx/nx-linux-x64-musl": "17.2.8",
     "@nx/nx-win32-arm64-msvc": "17.2.8",
     "@nx/nx-win32-x64-msvc": "17.2.8"
