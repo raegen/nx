@@ -70,7 +70,7 @@
   },
   "optionalDependencies": {
     "@nx/nx-darwin-arm64": "^19.3.1",
-    "@nx/nx-darwin-x64": "^19.3.1",
+    "@nx/nx-darwin-x64": "^19.6.2",
     "@nx/nx-freebsd-x64": "^19.3.1",
     "@nx/nx-linux-arm-gnueabihf": "^19.3.1",
     "@nx/nx-linux-arm64-gnu": "^19.3.1",
