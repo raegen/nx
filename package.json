@@ -84,7 +84,7 @@
     "nx": ">=17.2.8"
   },
   "devDependencies": {
-    "@types/jest": "^29.5.12",
+    "@types/jest": "^29.5.14",
     "@types/node": "^20.11.6",
     "@typescript-eslint/eslint-plugin": "^6.19.1",
     "@typescript-eslint/parser": "^6.19.1",
@@ -98,8 +98,8 @@
     "make-coverage-badge": "^1.2.0",
     "prettier": "^3.3.3",
     "prettier-eslint": "^16.3.0",
-    "ts-jest": "^29.2.4",
-    "typescript": "^5.5.4",
+    "ts-jest": "^29.2.5",
+    "typescript": "^5.6.3",
     "nx": "^19.3.1"
   }
 }
