@@ -20,7 +20,7 @@ Usage is straight-forward, just use the action as you would use the NX CLI,
 through the `nx` input specifying the NX command and arguments to run (with).
 
 ```yaml
-- uses: @raegen/nx
+ - uses: raegen/nx@v0.3.6
   with:
     nx: run-many --target=build
 ```
@@ -32,7 +32,7 @@ through the `nx` input specifying the NX command and arguments to run (with).
 Example(s):
 
 ```yaml
- - uses: @raegen/nx
+ - uses: raegen/nx@v0.3.6
       with:
          nx: run-many --target=build # or
          nx: build my-app # or
@@ -46,7 +46,7 @@ Defaults to `.nx/cache/remote`.
 Example(s):
 
 ```yaml
- - uses: @raegen/nx
+ - uses: raegen/nx@v0.3.6
    with:
       nx: ...
       cacheDirectory: .nx/cache/remote # or
@@ -61,7 +61,7 @@ under .nx/cache (prior to 17, it lived in node_modules/.cache/nx).
 
 The action runs nx using a custom runner that implements the nx remote cache
 interface, the same way that nx-cloud runner does. This cache is atomic,
-done on task level (separately for each project:target:configuration ran as a
+done on task level (separately for each `project:target:configuration` ran as a
 result of a command).
 
 There is no additional configuration needed - it works out of the box and is
