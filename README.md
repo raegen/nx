@@ -20,7 +20,7 @@ Usage is straight-forward, just use the action as you would use the NX CLI,
 through the `nx` input specifying the NX command and arguments to run (with).
 
 ```yaml
-- uses: @raegen/nx
+- uses: raegen/nx
   with:
     nx: run-many --target=build
 ```
@@ -32,7 +32,7 @@ through the `nx` input specifying the NX command and arguments to run (with).
 Example(s):
 
 ```yaml
- - uses: @raegen/nx
+ - uses: raegen/nx
       with:
          nx: run-many --target=build # or
          nx: build my-app # or
@@ -46,7 +46,7 @@ Defaults to `.nx/cache/remote`.
 Example(s):
 
 ```yaml
- - uses: @raegen/nx
+ - uses: raegen/nx
    with:
       nx: ...
       cacheDirectory: .nx/cache/remote # or
