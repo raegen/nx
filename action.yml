@@ -12,6 +12,11 @@ inputs:
     required: true
     default: '--help'
 
+  cwd:
+    description: 'Directory to run Nx in'
+    required: false
+    default: './'
+
   cacheDirectory:
     description: Defines where the local cache is stored.
     required: false
